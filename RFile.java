@@ -15,11 +15,11 @@ public class RFile {
 	ConnectData con = new ConnectData();
 	QlDiem qld = new QlDiem();
 	public void Docfile() throws FileNotFoundException {
-		String csvFilePath = "MonHoc.csv";
-		String csvFilePath1 = "GiaoVien.csv";
-		String csvFilePath2 = "SinhVien.csv";
-		String csvFilePath3 = "Lop.csv";
-		String csvFilePath4 = "SinhVienLop.csv";
+		String csvFilePath = "./DB1/MonHoc.csv";
+		String csvFilePath1 = "./DB1/GiaoVien.csv";
+		String csvFilePath2 = "./DB1/SinhVien.csv";
+		String csvFilePath3 = "./DB1/Lop.csv";
+		String csvFilePath4 = "./DB1/SinhVienLop.csv";
 		String sqlInsert = "INSERT INTO MonHoc "
                 + " VALUE(?,?,?);";
 		String sqlInsert1 = "INSERT INTO GiaoVien "

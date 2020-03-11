@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 public class DocFileDB2 {
 	Monhoc mh = new Monhoc();
@@ -91,25 +92,40 @@ public class DocFileDB2 {
 		}
 		try {// doc file sinhvienlop
 		con.ConnectDb();
+		int count = 0;
         PreparedStatement ps4 = con.conn.prepareStatement(sqlInsert4);
-        
+        String sqlSEL = "SELECT MaSV, MaLop FROM SinhVienLop;";
+        PreparedStatement ps5 = con.conn.prepareStatement(sqlSEL);
+        ResultSet rs = ps5.executeQuery();
         BufferedReader lineReader = new BufferedReader(new FileReader(csvFilePath4));
         String lineText = null;
-        lineReader.readLine(); 
         while ((lineText = lineReader.readLine()) != null) {
-            String[] data = lineText.split(",");           
-            sv.setMaSV(data[0]);
-            l.setMaLop(data[1]);
-            qld.setDiem(Double.parseDouble(data[2]));
-            ps4.setString(1, sv.getMaSV());
-            ps4.setString(2, l.getMaLop());
-            ps4.setDouble(3, qld.getDiem());
-            ps4.execute();
-        }
-        String sqlUPDATE1 = "UPDATE SinhVienLop SET Diem = ? WHERE MaSV = SV003 AND MaLop = L001;";
-        PreparedStatement ps5 = con.conn.prepareStatement(sqlUPDATE1);
-        ps5.setDouble(1, 9);
-        ps5.executeUpdate();
+        	count = 0;
+        		String[] data = lineText.split(",");           
+        		sv.setMaSV(data[0]);	
+        		l.setMaLop(data[1]);
+        		qld.setDiem(Double.parseDouble(data[2]));
+        		while(rs.next()) {
+                	if(rs.getString(1).equals(sv.getMaSV()) && rs.getString(2).equals(l.getMaLop())) {
+                		PreparedStatement ps6 = con.conn.prepareStatement("UPDATE SinhVienLop SET Diem = ? WHERE MaSV = ? AND MaLop = ?;");
+                		ps6.setDouble(1, qld.getDiem());
+                		ps6.setString(2, sv.getMaSV());
+                		ps6.setString(3, l.getMaLop());
+                		ps6.executeUpdate();
+                		count = 1;
+                		break;
+                	}
+        		}
+        		if(count == 1) {
+        			
+        		}
+        		else {
+                    ps4.setString(1, sv.getMaSV());
+                    ps4.setString(2, l.getMaLop());
+                    ps4.setDouble(3, qld.getDiem());
+                    ps4.execute();
+        		}
+            }
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 		}

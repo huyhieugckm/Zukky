@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 
 public class ConnectData {
-	private String dbName = "database1";
+	private String dbName = "JavaDatabase";
 	private String userName = "huyhieu";
 	private String password = "1234";
 	private String url = "jdbc:mariadb://localhost:3306/";

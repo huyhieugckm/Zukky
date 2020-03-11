@@ -12,11 +12,10 @@ public class Main {
 		System.out.println("4. Quan ly lop.");
 		System.out.println("5. Quan ly diem.");
 		System.out.println("6. Quan tri he thong.");
-		System.out.println("7. Xoa CSDL");
-		System.out.println("8. Them CSDL");
-		System.out.println("9. Them CSDL(DB2)");
-		System.out.println("10. In danh sach 3 sinh vien");
-		System.out.println("11. Thoat.");
+		System.out.println("7. Them CSDL");
+		System.out.println("8. Them CSDL(DB2)");
+		System.out.println("9. In danh sach 3 sinh vien");
+		System.out.println("10. Thoat.");
 		System.out.println("==================================");
 		System.out.print("Hay nhap lua chon: ");
 	}
@@ -46,10 +45,7 @@ public class Main {
 			case 6: QlHeThong ql = new QlHeThong();
 					ql.MenuQL();
 					break;
-			case 7: DelCSDL del = new DelCSDL();
-					del.DelData();
-					break;
-			case 8: RFile rf = new RFile();
+			case 7: RFile rf = new RFile();
 				try {
 					rf.Docfile();
 				} catch (FileNotFoundException e) {
@@ -57,7 +53,7 @@ public class Main {
 					e.printStackTrace();
 				}
 					break;
-			case 9: DocFileDB2 df = new DocFileDB2();
+			case 8: DocFileDB2 df = new DocFileDB2();
 				try {
 					df.Docfile2();
 				} catch (FileNotFoundException e) {
@@ -65,11 +61,11 @@ public class Main {
 					e.printStackTrace();
 				}
 					break;
-			case 10: 
+			case 9: 
 					break;
-			case 11: flag = false;	
+			case 10: flag = false;	
 					break;
-			default: System.out.println("Chi duoc chon tu 1 den 11");
+			default: System.out.println("Chi duoc chon tu 1 den 10");
 			}
 		}while (flag);
 	}

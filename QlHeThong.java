@@ -1,6 +1,8 @@
 package testDb;
 
 import java.io.IOException;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.Scanner;
 
 public class QlHeThong {
@@ -11,22 +13,42 @@ public class QlHeThong {
 		boolean flag = true;
 		do {
 			System.out.println("=========================");
-			System.out.println("1. Backup.");
-			System.out.println("2. Restore.");
-			System.out.println("3. Thoat");
+			System.out.println("1. Delete CSDL.");
+			System.out.println("2. Backup.");
+			System.out.println("3. Restore.");
+			System.out.println("4. Thoat");
 			System.out.println("=========================");
 			System.out.print("Hay nhap lua chon: ");
 			f = sc.nextInt();
 			switch(f) {
-			case 1: BackupDB();
+			case 1: DelData();
 					break;
-			case 2: ResDB();
+			case 2: BackupDB();
 					break;
-			case 3: flag = false;
+			case 3: ResDB();
 					break;
-			default: System.out.println("Chi duoc chon tu 1 den 3.");
+			case 4: flag = false;
+					break;
+			default: System.out.println("Chi duoc chon tu 1 den 4.");
 			}
 		}while(flag);
+	}
+	public void DelData() {
+		con.ConnectDb();
+		try {
+			PreparedStatement ps = con.conn.prepareStatement("DELETE FROM SinhVienLop;");
+			PreparedStatement ps1 = con.conn.prepareStatement("DELETE FROM Lop;");
+			PreparedStatement ps2 = con.conn.prepareStatement("DELETE FROM SinhVien;");
+			PreparedStatement ps3 = con.conn.prepareStatement("DELETE FROM GiaoVien;");
+			PreparedStatement ps4 = con.conn.prepareStatement("DELETE FROM MonHoc;");
+			ps.execute();
+			ps1.execute();
+			ps2.execute();
+			ps3.execute();
+			ps4.execute();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 	public void BackupDB() {
 		String executeCmd;
